@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import RestaurantCard from "../RestaurantCard";
 import Shimmer from "../Shimmer";
@@ -6,6 +6,7 @@ import Shimmer from "../Shimmer";
 import "./index.css";
 import { restaurantListAPI } from "../../config";
 import { Link } from "react-router-dom";
+import UserContext from "../../utils/UserContext";
 
 function filterRestaurants(searchText, restaurants) {
   const lst = restaurants.filter((restaurant) =>
@@ -18,6 +19,8 @@ const Body = () => {
   const [searchText, setSearchText] = useState("");
   const [allRestaurants, setAllRestaurants] = useState([]);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
+
+  const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
     fetchRestaurants();
@@ -82,6 +85,16 @@ const Body = () => {
           </svg>
         )}
       </div>
+      <input
+        type='text'
+        value={user.name}
+        onChange={(e) =>
+          setUser({
+            name: e.target.value,
+            email: `${e.target.value}.gmail.com`,
+          })
+        }
+      />
       <div className='Restaurants'>
         {filteredRestaurants.length === 0 ? (
           <h1>No Restaurants Found!!</h1>

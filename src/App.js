@@ -1,18 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { Outlet, useMatch } from "react-router-dom";
 
 import "./App.css";
+import UserContext from "./utils/UserContext";
 
 const App = () => {
+  const [user, setUser] = useState({
+    name: "Piyush Vyawahare",
+    email: "piyush.vyawahare@gmail.com",
+  });
   return (
     <>
-      <div className='main'>
-        <Header />
-        <Outlet />
-        <Footer />
-      </div>
+      <UserContext.Provider value={{ user: user, setUser: setUser }}>
+        <div className='main'>
+          <Header />
+          <Outlet />
+          <Footer />
+        </div>
+      </UserContext.Provider>
     </>
   );
 };
