@@ -5,6 +5,8 @@ import { Outlet, useMatch } from "react-router-dom";
 
 import "./App.css";
 import UserContext from "./utils/UserContext";
+import { Provider } from "react-redux";
+import store from "./utils/store";
 
 const App = () => {
   const [user, setUser] = useState({
@@ -12,7 +14,7 @@ const App = () => {
     email: "piyush.vyawahare@gmail.com",
   });
   return (
-    <>
+    <Provider store={store}>
       <UserContext.Provider value={{ user: user, setUser: setUser }}>
         <div className='main'>
           <Header />
@@ -20,7 +22,7 @@ const App = () => {
           <Footer />
         </div>
       </UserContext.Provider>
-    </>
+    </Provider>
   );
 };
 
